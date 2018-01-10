@@ -18,6 +18,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,7 +38,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class LoginActivity extends AppCompatActivity {
     private final String TAG = "LoginActivity";
-    public static final String BASE_URL = "http://0.0.0.0:8080/";
+    public static final String BASE_URL = "http://10.31.227.164:8080/";
     // UI references.
     private TextView mEmailView;
     private EditText mPasswordView;
@@ -134,13 +143,16 @@ public class LoginActivity extends AppCompatActivity {
     private void loginProcessWithRetrofit(final String email, String password) {
         ProjtrackService mApiService = this.getInterfaceService();
         Log.d("LoginService", email);
-        Call<Login> mService = mApiService.authenticate(email, password);
+        String body = "{ 'username': " + email + "'password': " + password + "}";
+        Call<Login> mService = mApiService.authenticate(body);
         mService.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
                 Login mLoginObject = response.body();
                 if (mLoginObject == null) {
-                    Log.d("LoginService", "Login failed.");
+                    Log.d("LoginService", "Login failed. Login server returned null response.");
+                    Log.d("LoginService", "Server returned response code " + response.code());
+                    Log.d("LoginService", response.raw().request().url().toString());
                     call.cancel();
                     Toast.makeText(LoginActivity.this, ("Connecting to " + BASE_URL + " failed."), Toast.LENGTH_LONG).show();
                 } else {

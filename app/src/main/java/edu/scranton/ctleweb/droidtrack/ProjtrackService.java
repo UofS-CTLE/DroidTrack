@@ -1,6 +1,9 @@
 package edu.scranton.ctleweb.droidtrack;
 
+import java.util.HashMap;
+
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -11,18 +14,18 @@ import retrofit2.http.Path;
  */
 
 interface ProjtrackService {
-    @POST("get_auth_token/{username}/{password}")
-    Call<Login> authenticate(@Path("username") String email, @Path("password") String password);
-    @GET("users/{id}")
+    @POST("get_auth_token")
+    Call<Login> authenticate(@Body String body);
+    @GET("api/users/{id}")
     Call<User> getUser(@Path("id") String id);
-    @GET("projects/{id}")
+    @GET("api/projects/{id}")
     Call<Project> getProject(@Path("id") String id);
-    @GET("clients/{id}")
+    @GET("api/clients/{id}")
     Call<Client> getClient(@Path("id") String id);
-    @GET("departments/{id}")
+    @GET("api/departments/{id}")
     Call<Department> getDepartment(@Path("id") String id);
-    @GET("types/{id}")
+    @GET("api/types/{id}")
     Call<Type> getType(@Path("id") String id);
-    @GET("semesters/{id}")
+    @GET("api/semesters/{id}")
     Call<Semester> getSemester(@Path("id") String id);
 }
