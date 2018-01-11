@@ -18,14 +18,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.HashMap;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -141,10 +135,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginProcessWithRetrofit(final String email, String password) {
+        Gson objGson = new GsonBuilder().setPrettyPrinting().create();
         ProjtrackService mApiService = this.getInterfaceService();
         Log.d("LoginService", email);
-        String body = "{ 'username': " + email + "'password': " + password + "}";
-        Call<Login> mService = mApiService.authenticate(body);
+        Call<Login> mService = mApiService.authenticate(email, password);
         mService.enqueue(new Callback<Login>() {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
@@ -156,15 +150,12 @@ public class LoginActivity extends AppCompatActivity {
                     call.cancel();
                     Toast.makeText(LoginActivity.this, ("Connecting to " + BASE_URL + " failed."), Toast.LENGTH_LONG).show();
                 } else {
-                    String returnedResponse = mLoginObject.isLogin;
-                    Toast.makeText(LoginActivity.this, "Returned " + returnedResponse, Toast.LENGTH_LONG).show();
-                    //showProgress(false);
-                    if (returnedResponse.trim().equals("1")) {
-                        // redirect to Main Activity page
-                        Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
-                        loginIntent.putExtra("EMAIL", email);
-                        startActivity(loginIntent);
-                    }
+                    String returnedResponse = mLoginObject.token;
+                    returnedResponse = "Token " + returnedResponse;
+                    Toast.makeText(LoginActivity.this, "Retrieved login token.", Toast.LENGTH_LONG).show();
+                    Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    loginIntent.putExtra("TOKEN", returnedResponse);
+                    startActivity(loginIntent);
                 }
             }
 

@@ -5,5 +5,5 @@ package edu.scranton.ctleweb.droidtrack;
  */
 
 public class Login {
-    public String isLogin;
+    public String token;
 }
