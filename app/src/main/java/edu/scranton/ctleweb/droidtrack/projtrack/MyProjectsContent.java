@@ -1,12 +1,14 @@
 package edu.scranton.ctleweb.droidtrack.projtrack;
 
-import java.lang.reflect.Type;
+import android.util.Log;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProjectContent {
+public class MyProjectsContent {
 
     /**
      * An array of sample (Project) items.
@@ -28,7 +30,7 @@ public class ProjectContent {
     /**
      * A Project item representing a piece of content.
      */
-    public static class ProjectItem {
+    public static class ProjectItem implements Serializable {
         public final String id;
         public final String title;
         public final String description;
@@ -36,11 +38,12 @@ public class ProjectContent {
         public final ClientItem client;
         public final TypeItem projtype;
         public final String date;
+        public final String hours;
         public final List<UserItem> consultants;
 
         public ProjectItem(String id, String title, String description,
                            boolean completed, ClientItem client, TypeItem projtype,
-                           String date, List<UserItem> consultants) {
+                           String date, String hours, List<UserItem> consultants) {
             this.id = id;
             this.title = title;
             this.description = description;
@@ -48,6 +51,7 @@ public class ProjectContent {
             this.client = client;
             this.projtype = projtype;
             this.date = date;
+            this.hours = hours;
             this.consultants = consultants;
         }
 
@@ -57,7 +61,7 @@ public class ProjectContent {
         }
     }
 
-    public static class ClientItem {
+    public static class ClientItem implements Serializable {
 
         public final String first_name;
         public final String last_name;
@@ -79,7 +83,7 @@ public class ProjectContent {
         }
     }
 
-    public static class TypeItem {
+    public static class TypeItem implements Serializable {
 
         public final String name;
 
@@ -93,7 +97,7 @@ public class ProjectContent {
         }
     }
 
-    public static class UserItem {
+    public static class UserItem implements Serializable {
 
         public final String username;
 
@@ -107,7 +111,7 @@ public class ProjectContent {
         }
     }
 
-    public static class DepartmentItem {
+    public static class DepartmentItem implements Serializable {
 
         public final String name;
 
@@ -121,7 +125,7 @@ public class ProjectContent {
         }
     }
 
-    public static class SemesterItem {
+    public static class SemesterItem implements Serializable {
 
         public final String name;
 

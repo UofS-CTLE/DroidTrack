@@ -3,15 +3,23 @@ package edu.scranton.ctleweb.droidtrack;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import edu.scranton.ctleweb.droidtrack.projtrack.ProjectContent;
-import retrofit2.Retrofit;
+import java.io.IOException;
+import java.util.List;
+
+import edu.scranton.ctleweb.droidtrack.projtrack.AllProjectsContent;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A fragment representing a list of Items.
@@ -52,11 +60,38 @@ public class AllProjectsFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
-                .build();
+        Bundle arg = getArguments();
+        String token = arg.getString("token", "0");
 
-        ProjtrackService service = retrofit.create(ProjtrackService.class);
+        ProjtrackService sg = ServiceGenerator.createService(ProjtrackService.class, token);
+
+        if (AllProjectsContent.ITEMS.size() == 0) {
+            Call<List<AllProjectsContent.ProjectItem>> projects = sg.getAllProjects(token);
+            projects.enqueue(new Callback<List<AllProjectsContent.ProjectItem>>() {
+                @Override
+                public void onResponse(Call<List<AllProjectsContent.ProjectItem>> call,
+                                       Response<List<AllProjectsContent.ProjectItem>> response) {
+                    try {
+                        Log.d("DownloadData", response.body().toString());
+                        AllProjectsContent.ITEMS.addAll(response.body());
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.detach(AllProjectsFragment.this).attach(AllProjectsFragment.this).commit();
+                    } catch (NullPointerException e) {
+                        try {
+                            Log.d("ERRBODY", response.errorBody().string());
+                        } catch (IOException f) {
+                            Log.d("IOException", f.getMessage());
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<AllProjectsContent.ProjectItem>> call, Throwable t) {
+                    Toast.makeText(getContext(), "We're having trouble retrieving projects.", Toast.LENGTH_LONG).show();
+                    Log.d("DownloadFail", t.toString());
+                }
+            });
+        }
     }
 
     @Override
@@ -73,7 +108,7 @@ public class AllProjectsFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyAllProjectsRecyclerViewAdapter(ProjectContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyAllProjectsRecyclerViewAdapter(AllProjectsContent.ITEMS, mListener));
         }
         return view;
     }
@@ -108,6 +143,6 @@ public class AllProjectsFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(ProjectContent.ProjectItem item);
+        void onListFragmentInteraction(AllProjectsContent.ProjectItem item);
     }
 }

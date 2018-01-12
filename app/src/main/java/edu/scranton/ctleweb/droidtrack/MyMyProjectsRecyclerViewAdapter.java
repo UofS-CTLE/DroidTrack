@@ -1,13 +1,16 @@
 package edu.scranton.ctleweb.droidtrack;
 
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import edu.scranton.ctleweb.droidtrack.MyProjectsFragment.OnListFragmentInteractionListener;
-import edu.scranton.ctleweb.droidtrack.projtrack.ProjectContent.ProjectItem;
+import edu.scranton.ctleweb.droidtrack.projtrack.MyProjectsContent.ProjectItem;
 
 import java.util.List;
 
@@ -20,7 +23,8 @@ public class MyMyProjectsRecyclerViewAdapter extends RecyclerView.Adapter<MyMyPr
     private final List<ProjectItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyMyProjectsRecyclerViewAdapter(List<ProjectItem> items, OnListFragmentInteractionListener listener) {
+    public MyMyProjectsRecyclerViewAdapter(List<ProjectItem> items,
+                                           OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -45,6 +49,11 @@ public class MyMyProjectsRecyclerViewAdapter extends RecyclerView.Adapter<MyMyPr
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
+                    Log.d("Click", "Clicked.");
+                    Log.d("ClickedOn", v.toString());
+                    TextView tv = (TextView)((LinearLayout)v).getChildAt(0);
+                    String text = tv.getText().toString();
+                    Log.d("Content", text);
                 }
             }
         });

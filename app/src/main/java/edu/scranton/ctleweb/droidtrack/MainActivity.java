@@ -14,13 +14,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import edu.scranton.ctleweb.droidtrack.projtrack.ProjectContent;
+import java.io.Serializable;
+
+import edu.scranton.ctleweb.droidtrack.projtrack.AllProjectsContent;
+import edu.scranton.ctleweb.droidtrack.projtrack.MyProjectsContent;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,
         AddClientFragment.OnFragmentInteractionListener,
         AddProjectFragment.OnFragmentInteractionListener,
+        AllProjectsView.OnFragmentInteractionListener,
+        MyProjectsView.OnFragmentInteractionListener,
         AllProjectsFragment.OnListFragmentInteractionListener,
         MyProjectsFragment.OnListFragmentInteractionListener {
 
@@ -41,7 +46,7 @@ public class MainActivity extends AppCompatActivity
 
         this.token = getIntent().getStringExtra("TOKEN");
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -52,7 +57,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -114,7 +119,7 @@ public class MainActivity extends AppCompatActivity
             Bundle b = new Bundle();
             b.putString("token", this.token);
             fragment.setArguments(b);
-            fragmentTransaction.add(R.id.fragment_container, fragment).addToBackStack("AllProjects").commit();
+            fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("AllProjects").commit();
         } else if (id == R.id.nav_add_project) {
             Log.d("MainActivity", "Add Project");
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -146,7 +151,24 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(ProjectContent.ProjectItem item) {
+    public void onListFragmentInteraction(AllProjectsContent.ProjectItem item) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        AllProjectsView fragment = new AllProjectsView();
+        Bundle b = new Bundle();
+        b.putSerializable("item", item);
+        fragment.setArguments(b);
+        fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("Project").commit();
+    }
 
+    @Override
+    public void onListFragmentInteraction(MyProjectsContent.ProjectItem item) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        MyProjectsView fragment = new MyProjectsView();
+        Bundle b = new Bundle();
+        b.putSerializable("item", item);
+        fragment.setArguments(b);
+        fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("Project").commit();
     }
 }
