@@ -7,48 +7,27 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import edu.scranton.ctleweb.droidtrack.projtrack.AllProjectsContent
 
 
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [ProjectView.OnFragmentInteractionListener] interface
+ * [AddProjectFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [ProjectView.newInstance] factory method to
+ * Use the [AddProjectFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AllProjectsView : Fragment() {
+class AddProjectFragment : Fragment() {
 
     // TODO: Rename and change types of parameters
-    private var project: AllProjectsContent.ProjectItem? = null
+    private var mParam1: String? = null
+    private var mParam2: String? = null
 
     private var mListener: OnFragmentInteractionListener? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (arguments != null) {
-            project = arguments?.getSerializable("item") as AllProjectsContent.ProjectItem
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val v: View = inflater.inflate(R.layout.fragment_all_projects_view, container, false)
-        val title: TextView = v.findViewById<TextView>(R.id.title) as TextView
-        title.text = project?.title
-        val descr: TextView = v.findViewById<TextView>(R.id.description) as TextView
-        descr.text = project?.description
-        val type: TextView = v.findViewById<TextView>(R.id.type) as TextView
-        type.text = project?.projtype?.name
-        val clint: TextView = v.findViewById<TextView>(R.id.client) as TextView
-        clint.text = "Client: " + project?.client?.last_name
-        val hours: TextView = v.findViewById<TextView>(R.id.hours) as TextView
-        hours.text = "Hours: " + project?.hours
-        val compl: TextView = v.findViewById<TextView>(R.id.completed) as TextView
-        compl.text = "Completed: " + project?.completed.toString()
-        return v
+        return inflater.inflate(R.layout.fragment_add_project, container, false)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -75,8 +54,8 @@ class AllProjectsView : Fragment() {
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
-     * to the v and potentially other fragments contained in that
-     * v.
+     * to the activity and potentially other fragments contained in that
+     * activity.
      *
      *
      * See the Android Training lesson [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html) for more information.
@@ -98,11 +77,11 @@ class AllProjectsView : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ProjectView.
+         * @return A new instance of fragment AddProjectFragment.
          */
         // TODO: Rename and change types and number of parameters
-        fun newInstance(param1: String, param2: String): AllProjectsView {
-            val fragment = AllProjectsView()
+        fun newInstance(param1: String, param2: String): AddProjectFragment {
+            val fragment = AddProjectFragment()
             val args = Bundle()
             args.putString(ARG_PARAM1, param1)
             args.putString(ARG_PARAM2, param2)
