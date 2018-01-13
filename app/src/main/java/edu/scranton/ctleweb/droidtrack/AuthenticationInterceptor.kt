@@ -4,10 +4,6 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
 
-/**
- * Created by sean on 1/9/18.
- */
-
 class AuthenticationInterceptor(private val authToken: String?) : Interceptor {
 
     @Throws(IOException::class)

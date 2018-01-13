@@ -5,10 +5,6 @@ import edu.scranton.ctleweb.droidtrack.projtrack.MyProjectsContent
 import retrofit2.Call
 import retrofit2.http.*
 
-/**
- * Created by sean on 1/9/18.
- */
-
 internal interface ProjtrackService {
     @FormUrlEncoded
     @POST("get_auth_token/")

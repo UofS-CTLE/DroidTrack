@@ -10,10 +10,6 @@ import android.widget.TextView
 import edu.scranton.ctleweb.droidtrack.MyProjectsFragment.OnListFragmentInteractionListener
 import edu.scranton.ctleweb.droidtrack.projtrack.MyProjectsContent.ProjectItem
 
-/**
- * [RecyclerView.Adapter] that can display a [ProjectItem] and makes a call to the
- * specified [OnListFragmentInteractionListener].
- */
 class MyMyProjectsRecyclerViewAdapter(private val mValues: List<ProjectItem>,
                                       private val mListener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<MyMyProjectsRecyclerViewAdapter.ViewHolder>() {
 
@@ -30,8 +26,6 @@ class MyMyProjectsRecyclerViewAdapter(private val mValues: List<ProjectItem>,
 
         holder.mView.setOnClickListener { v ->
             if (null != mListener) {
-                // Notify the active callbacks interface (the activity, if the
-                // fragment is attached to one) that an item has been selected.
                 mListener.onListFragmentInteraction(holder.mItem!!)
                 Log.d("Click", "Clicked.")
                 Log.d("ClickedOn", v.toString())
@@ -47,16 +41,9 @@ class MyMyProjectsRecyclerViewAdapter(private val mValues: List<ProjectItem>,
     }
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mIdView: TextView
-        val mContentView: TextView
-        val mClientView: TextView
+        val mIdView: TextView = mView.findViewById<View>(R.id.id) as TextView
+        val mContentView: TextView = mView.findViewById<View>(R.id.content) as TextView
         var mItem: ProjectItem? = null
-
-        init {
-            mIdView = mView.findViewById<View>(R.id.id) as TextView
-            mContentView = mView.findViewById<View>(R.id.content) as TextView
-            mClientView = mView.findViewById<View>(R.id.client) as TextView
-        }
 
         override fun toString(): String {
             return super.toString() + " '" + mContentView.text + "'"

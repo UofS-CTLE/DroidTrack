@@ -18,7 +18,6 @@ import retrofit2.Response
 import java.io.IOException
 
 class AllProjectsFragment : Fragment() {
-    // TODO: Customize parameters
     private var mColumnCount = 1
     private var mListener: OnListFragmentInteractionListener? = null
 
@@ -66,7 +65,6 @@ class AllProjectsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_allprojects_list, container, false)
 
-        // Set the adapter
         if (view is RecyclerView) {
             val context = view.getContext()
             if (mColumnCount <= 1) {
@@ -94,26 +92,14 @@ class AllProjectsFragment : Fragment() {
         mListener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html) for more information.
-     */
     interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         fun onListFragmentInteraction(item: AllProjectsContent.ProjectItem)
     }
 
     companion object {
 
-        // TODO: Customize parameter argument names
         private val ARG_COLUMN_COUNT = "column-count"
 
-        // TODO: Customize parameter initialization
         fun newInstance(columnCount: Int): AllProjectsFragment {
             val fragment = AllProjectsFragment()
             val args = Bundle()

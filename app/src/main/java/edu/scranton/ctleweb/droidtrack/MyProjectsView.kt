@@ -12,7 +12,6 @@ import edu.scranton.ctleweb.droidtrack.projtrack.MyProjectsContent
 
 class MyProjectsView : Fragment() {
 
-    // TODO: Rename and change types of parameters
     private var project: MyProjectsContent.ProjectItem? = null
 
     private var mListener: OnFragmentInteractionListener? = null
@@ -25,7 +24,6 @@ class MyProjectsView : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         val v: View = inflater.inflate(R.layout.fragment_my_projects_view, container, false)
         val title: TextView = v.findViewById<TextView>(R.id.title) as TextView
         title.text = project?.title
@@ -63,7 +61,6 @@ class MyProjectsView : Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
     }
 

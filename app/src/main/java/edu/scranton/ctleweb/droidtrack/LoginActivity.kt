@@ -21,18 +21,12 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-/**
- * A login screen that offers login via email/password.
- */
 class LoginActivity : AppCompatActivity() {
-    private val TAG = "LoginActivity"
-    // UI references.
     private var mEmailView: TextView? = null
     private var mPasswordView: EditText? = null
     private var mProgressView: View? = null
     private var mLoginFormView: View? = null
-    private val failedLoginMessage: TextView? = null
-    internal var focusView: View? = null
+    private var focusView: View? = null
     private var email: String? = null
     private var password: String? = null
 
@@ -48,7 +42,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        // Set up the login form.
         mEmailView = findViewById<View>(R.id.email) as TextView
         mPasswordView = findViewById<View>(R.id.password) as EditText
         mPasswordView!!.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
@@ -74,14 +67,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginValidation(): Boolean {
-        // Reset errors.
         mEmailView!!.error = null
         mPasswordView!!.error = null
-        // Store values at the time of the login attempt.
         email = mEmailView!!.text.toString()
         password = mPasswordView!!.text.toString()
         var cancel = false
-        // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             mEmailView!!.error = getString(R.string.error_field_required)
             focusView = mEmailView
@@ -90,12 +80,9 @@ class LoginActivity : AppCompatActivity() {
         return cancel
     }
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private fun showProgress(show: Boolean) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+        if (Build.VERSION.SDK_INT >= 23) {
             val shortAnimTime = resources.getInteger(android.R.integer.config_shortAnimTime)
             mLoginFormView!!.visibility = if (show) View.GONE else View.VISIBLE
             mLoginFormView!!.animate().setDuration(shortAnimTime.toLong()).alpha((if (show) 0 else 1).toFloat()).setListener(object : AnimatorListenerAdapter() {

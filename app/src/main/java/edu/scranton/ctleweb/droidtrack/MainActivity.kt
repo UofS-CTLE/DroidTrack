@@ -52,73 +52,71 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         val id = item.itemId
-
-
         return if (id == R.id.action_settings) {
             true
         } else super.onOptionsItemSelected(item)
-
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
         val id = item.itemId
 
-        if (id == R.id.nav_home) {
-            Log.d("MainActivity", "Home")
-            val fragmentManager = supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            val fragment = HomeFragment()
-            val b = Bundle()
-            b.putString("token", this.token)
-            fragment.arguments = b
-            fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("Home").commit()
-        } else if (id == R.id.nav_my_projects) {
-            Log.d("MainActivity", "My Projects")
-            val fragmentManager = supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            val fragment = MyProjectsFragment()
-            val b = Bundle()
-            b.putString("token", this.token)
-            fragment.arguments = b
-            fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("MyProjects").commit()
-        } else if (id == R.id.nav_all_projects) {
-            Log.d("MainActivity", "All Projects")
-            val fragmentManager = supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            val fragment = AllProjectsFragment()
-            val b = Bundle()
-            b.putString("token", this.token)
-            fragment.arguments = b
-            fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("AllProjects").commit()
-        } else if (id == R.id.nav_add_project) {
-            Log.d("MainActivity", "Add Project")
-            val fragmentManager = supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            val fragment = AddProjectFragment()
-            val b = Bundle()
-            b.putString("token", this.token)
-            fragment.arguments = b
-            fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("AddProject").commit()
-        } else if (id == R.id.nav_add_client) {
-            Log.d("MainActivity", "Add Client")
-            val fragmentManager = supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            val fragment = AddClientFragment()
-            val b = Bundle()
-            b.putString("token", this.token)
-            fragment.arguments = b
-            fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("AddClient").commit()
+        when (id) {
+            R.id.nav_home -> {
+                Log.d("MainActivity", "Home")
+                val fragmentManager = supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                val fragment = HomeFragment()
+                val b = Bundle()
+                b.putString("token", this.token)
+                fragment.arguments = b
+                fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("Home").commit()
+            }
+            R.id.nav_my_projects -> {
+                Log.d("MainActivity", "My Projects")
+                val fragmentManager = supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                val fragment = MyProjectsFragment()
+                val b = Bundle()
+                b.putString("token", this.token)
+                fragment.arguments = b
+                fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("MyProjects").commit()
+            }
+            R.id.nav_all_projects -> {
+                Log.d("MainActivity", "All Projects")
+                val fragmentManager = supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                val fragment = AllProjectsFragment()
+                val b = Bundle()
+                b.putString("token", this.token)
+                fragment.arguments = b
+                fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("AllProjects").commit()
+            }
+            R.id.nav_add_project -> {
+                Log.d("MainActivity", "Add Project")
+                val fragmentManager = supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                val fragment = AddProjectFragment()
+                val b = Bundle()
+                b.putString("token", this.token)
+                fragment.arguments = b
+                fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("AddProject").commit()
+            }
+            R.id.nav_add_client -> {
+                Log.d("MainActivity", "Add Client")
+                val fragmentManager = supportFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
+                val fragment = AddClientFragment()
+                val b = Bundle()
+                b.putString("token", this.token)
+                fragment.arguments = b
+                fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("AddClient").commit()
+            }
         }
 
         val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
