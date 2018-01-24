@@ -46,11 +46,11 @@ internal interface ProjtrackService {
     fun getUsers(@Header("authenticate") token: String): Call<List<AllProjectsContent.UserItem>>
 
     @Headers("Content-Type: application/json")
-    @GET("api/all_projects/")
+    @GET("api/projects/")
     fun getAllProjects(@Header("authenticate") token: String): Call<List<AllProjectsContent.ProjectItem>>
 
     @Headers("Content-Type: application/json")
-    @GET("api/my_projects/")
+    @GET("api/projects?my_projects=true")
     fun getMyProjects(@Header("authenticate") token: String): Call<List<MyProjectsContent.ProjectItem>>
 
     @Headers("Content-Type: application/json")
