@@ -1,0 +1,8 @@
+.gradle/
+.idea/libraries/
+.idea/misc.xml
+.idea/workspace.xml
+DroidTrack.iml
+app/app.iml
+build/
+local.properties

@@ -30,6 +30,7 @@ class MyProjectsFragment : Fragment() {
 
         val arg = arguments
         val token = arg!!.getString("token", "0")
+        Log.d("TOKEN", token)
 
         val sg = ServiceGenerator.createService(ProjtrackService::class.java, token)
 
@@ -46,6 +47,7 @@ class MyProjectsFragment : Fragment() {
                     } catch (e: NullPointerException) {
                         try {
                             Log.d("ERRBODY", response.errorBody()!!.string())
+                            Toast.makeText(context, response.errorBody()!!.string(), Toast.LENGTH_LONG).show()
                         } catch (f: IOException) {
                             Log.d("IOException", f.message)
                         }

@@ -119,6 +119,7 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     var returnedResponse = mLoginObject.token
                     returnedResponse = "Token " + returnedResponse
+                    Log.d("TOKEN", returnedResponse)
                     Toast.makeText(this@LoginActivity, "Retrieved login token.", Toast.LENGTH_LONG).show()
                     val loginIntent = Intent(this@LoginActivity, MainActivity::class.java)
                     loginIntent.putExtra("TOKEN", returnedResponse)
@@ -137,6 +138,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     companion object {
-        val BASE_URL = "http://10.31.227.164:8080/"
+        val BASE_URL = "https://ctleweb.scranton.edu/projtrack3/"
     }
 }

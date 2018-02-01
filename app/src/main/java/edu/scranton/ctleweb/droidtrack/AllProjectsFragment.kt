@@ -46,6 +46,7 @@ class AllProjectsFragment : Fragment() {
                     } catch (e: NullPointerException) {
                         try {
                             Log.d("ERRBODY", response.errorBody()!!.string())
+                            Toast.makeText(context, response.errorBody()!!.string(), Toast.LENGTH_LONG).show()
                         } catch (f: IOException) {
                             Log.d("IOException", f.message)
                         }
