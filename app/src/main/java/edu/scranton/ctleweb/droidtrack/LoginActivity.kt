@@ -138,6 +138,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     companion object {
-        val BASE_URL = "https://ctleweb.scranton.edu/projtrack3/"
+        const val BASE_URL = "https://ctleweb.scranton.edu/projtrack3/"
     }
 }

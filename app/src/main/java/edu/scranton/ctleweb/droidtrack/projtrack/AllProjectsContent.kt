@@ -13,13 +13,13 @@ object AllProjectsContent {
     /**
      * A map of sample (Project) items, by ID.
      */
-    val ITEM_MAP: MutableMap<String, ProjectItem> = HashMap()
+    private val ITEM_MAP: MutableMap<String, ProjectItem> = HashMap()
 
-    private val COUNT = 25
+    private const val COUNT = 25
 
     private fun addItem(item: ProjectItem) {
         ITEMS.add(item)
-        ITEM_MAP.put(item.id, item)
+        ITEM_MAP[item.id] = item
     }
 
     /**
@@ -34,7 +34,7 @@ object AllProjectsContent {
         }
     }
 
-    class ClientItem(val first_name: String, val last_name: String, val email: String,
+    class ClientItem(private val first_name: String, val last_name: String, val email: String,
                      val department: DepartmentItem) : Serializable {
 
         override fun toString(): String {
@@ -49,7 +49,7 @@ object AllProjectsContent {
         }
     }
 
-    class UserItem(val username: String) : Serializable {
+    class UserItem(private val username: String) : Serializable {
 
         override fun toString(): String {
             return this.username

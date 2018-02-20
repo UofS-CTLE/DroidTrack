@@ -16,26 +16,23 @@
         android:layout_marginTop="60sp">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <EditText
-                android:id="@+id/title_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Title"
                 android:textSize="32sp" />
 
             <EditText
-                android:id="@+id/description_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Description"
                 android:textSize="32sp" />
 
             <Spinner
-                android:id="@+id/type_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="32sp" />
@@ -47,7 +44,6 @@
                 android:textSize="32sp" />
 
             <Spinner
-                android:id="@+id/client_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="32sp" />
@@ -67,8 +63,8 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="number"
                 android:hint="Hours"
+                android:inputType="number"
                 android:textSize="32sp" />
 
             <CheckBox
@@ -78,7 +74,6 @@
                 android:textSize="32sp" />
 
             <Button
-                android:id="@+id/submit_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Submit"

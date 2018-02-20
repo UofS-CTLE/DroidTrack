@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 
 class AddClientFragment : Fragment() {
 
@@ -14,6 +16,19 @@ class AddClientFragment : Fragment() {
     private var mListener: OnFragmentInteractionListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val spinner: Spinner? = view?.findViewById(R.id.department_spinner)
+
+        val plants = arrayOf("Black birch", "European weeping birch")
+
+        val spinnerArrayAdapter = ArrayAdapter<String>(
+                this.context,
+                R.layout.support_simple_spinner_dropdown_item,
+                plants
+        )
+
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+        spinner?.adapter = spinnerArrayAdapter
+
         return inflater.inflate(R.layout.fragment_add_client, container, false)
     }
 

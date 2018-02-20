@@ -99,7 +99,7 @@ class AllProjectsFragment : Fragment() {
 
     companion object {
 
-        private val ARG_COLUMN_COUNT = "column-count"
+        private const val ARG_COLUMN_COUNT = "column-count"
 
         fun newInstance(columnCount: Int): AllProjectsFragment {
             val fragment = AllProjectsFragment()

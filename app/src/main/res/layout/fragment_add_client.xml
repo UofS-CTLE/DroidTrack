@@ -12,24 +12,22 @@
         android:textSize="52sp" />
 
     <EditText
-        android:id="@+id/first_name_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="First Name"
         android:textSize="32sp" />
 
     <EditText
-        android:id="@+id/last_name_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Last Name"
         android:textSize="32sp" />
 
     <EditText
-        android:id="@+id/email_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
+        android:inputType="textEmailAddress"
         android:textSize="32sp" />
 
     <Spinner
@@ -40,7 +38,6 @@
         android:textSize="32sp" />
 
     <Button
-        android:id="@+id/submit_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Submit"
