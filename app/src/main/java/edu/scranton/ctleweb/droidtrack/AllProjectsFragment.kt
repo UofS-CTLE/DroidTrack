@@ -35,6 +35,74 @@ class AllProjectsFragment : Fragment() {
 
         if (AllProjectsContent.ITEMS.size == 0) {
             val projects = sg.getAllProjects(token)
+            val clients = sg.getClients(token)
+            val types = sg.getTypes(token)
+            val depts = sg.getDepartments(token)
+            depts.enqueue(object : Callback<List<AllProjectsContent.DepartmentItem>> {
+                override fun onResponse(call: Call<List<AllProjectsContent.DepartmentItem>>,
+                                        response: Response<List<AllProjectsContent.DepartmentItem>>) {
+                    try {
+                        Log.d("DownloadData", response.body()!!.toString())
+                        AllProjectsContent.DEPTS.addAll(response.body()!!)
+                    } catch (e: NullPointerException) {
+                        try {
+                            Log.d("ERRBODY", response.errorBody()!!.string())
+                            Toast.makeText(context, response.errorBody()!!.string(), Toast.LENGTH_LONG).show()
+                        } catch (f: IOException) {
+                            Log.d("IOException", f.message)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<List<AllProjectsContent.DepartmentItem>>?, t: Throwable?) {
+                    Toast.makeText(context, "We're having trouble retrieving types.", Toast.LENGTH_LONG).show()
+                    Log.d("DownloadFail", t.toString())
+                }
+            })
+            types.enqueue(object : Callback<List<AllProjectsContent.TypeItem>> {
+                override fun onResponse(call: Call<List<AllProjectsContent.TypeItem>>,
+                                        response: Response<List<AllProjectsContent.TypeItem>>) {
+                    try {
+                        Log.d("DownloadData", response.body()!!.toString())
+                        AllProjectsContent.TYPES.addAll(response.body()!!)
+                    } catch (e: NullPointerException) {
+                        try {
+                            Log.d("ERRBODY", response.errorBody()!!.string())
+                            Toast.makeText(context, response.errorBody()!!.string(), Toast.LENGTH_LONG).show()
+                        } catch (f: IOException) {
+                            Log.d("IOException", f.message)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<List<AllProjectsContent.TypeItem>>?, t: Throwable?) {
+                    Toast.makeText(context, "We're having trouble retrieving types.", Toast.LENGTH_LONG).show()
+                    Log.d("DownloadFail", t.toString())
+                }
+            })
+            clients.enqueue(object : Callback<List<AllProjectsContent.ClientItem>> {
+                override fun onResponse(call: Call<List<AllProjectsContent.ClientItem>>,
+                                        response: Response<List<AllProjectsContent.ClientItem>>) {
+                    try {
+                        Log.d("DownloadData", response.body()!!.toString())
+                        AllProjectsContent.CLIENTS.addAll(response.body()!!)
+                        val ft = fragmentManager?.beginTransaction()
+                        ft?.detach(this@AllProjectsFragment)?.attach(this@AllProjectsFragment)?.commit()
+                    } catch (e: NullPointerException) {
+                        try {
+                            Log.d("ERRBODY", response.errorBody()!!.string())
+                            Toast.makeText(context, response.errorBody()!!.string(), Toast.LENGTH_LONG).show()
+                        } catch (f: IOException) {
+                            Log.d("IOException", f.message)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<List<AllProjectsContent.ClientItem>>?, t: Throwable?) {
+                    Toast.makeText(context, "We're having trouble retrieving clients.", Toast.LENGTH_LONG).show()
+                    Log.d("DownloadFail", t.toString())
+                }
+            })
             projects.enqueue(object : Callback<List<AllProjectsContent.ProjectItem>> {
                 override fun onResponse(call: Call<List<AllProjectsContent.ProjectItem>>,
                                         response: Response<List<AllProjectsContent.ProjectItem>>) {
@@ -50,9 +118,7 @@ class AllProjectsFragment : Fragment() {
                         } catch (f: IOException) {
                             Log.d("IOException", f.message)
                         }
-
                     }
-
                 }
 
                 override fun onFailure(call: Call<List<AllProjectsContent.ProjectItem>>, t: Throwable) {

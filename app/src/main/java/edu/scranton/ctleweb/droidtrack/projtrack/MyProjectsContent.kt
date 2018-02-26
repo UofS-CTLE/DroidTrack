@@ -2,6 +2,7 @@ package edu.scranton.ctleweb.droidtrack.projtrack
 
 import java.io.Serializable
 import java.util.*
+import kotlin.collections.ArrayList
 
 object MyProjectsContent {
 
@@ -9,25 +10,19 @@ object MyProjectsContent {
      * An array of sample (Project) items.
      */
     val ITEMS: MutableList<ProjectItem> = ArrayList()
-
-    /**
-     * A map of sample (Project) items, by ID.
-     */
-    private val ITEM_MAP: MutableMap<String, ProjectItem> = HashMap()
-
-    private const val COUNT = 25
-
-    private fun addItem(item: ProjectItem) {
-        ITEMS.add(item)
-        ITEM_MAP[item.id] = item
-    }
+    val CLIENTS: MutableList<ClientItem> = ArrayList()
+    val TYPES: MutableList<TypeItem> = ArrayList()
+    val DEPTS: MutableList<DepartmentItem> = ArrayList()
 
     /**
      * A Project item representing a piece of content.
      */
     class ProjectItem(val id: String, val title: String, val description: String,
-                      val completed: Boolean, val client: ClientItem, val projtype: TypeItem,
+                      val completed: Boolean, val cli: Int, val type: Int,
                       val date: String, val hours: String, val consultants: List<UserItem>) : Serializable {
+
+        val projtype: TypeItem = TYPES[type]
+        val client: ClientItem = CLIENTS[cli]
 
         override fun toString(): String {
             return this.title
@@ -35,7 +30,9 @@ object MyProjectsContent {
     }
 
     class ClientItem(private val first_name: String, val last_name: String, val email: String,
-                     val department: DepartmentItem) : Serializable {
+                     val dept: Int) : Serializable {
+
+        val department: DepartmentItem = DEPTS[dept]
 
         override fun toString(): String {
             return this.first_name + " " + this.last_name
