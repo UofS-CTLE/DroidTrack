@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import edu.scranton.ctleweb.droidtrack.projtrack.Content
 import edu.scranton.ctleweb.droidtrack.projtrack.MyProjectsContent
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,15 +39,15 @@ class MyProjectsFragment : Fragment() {
             val clients = sg.getClients(token)
             val types = sg.getTypes(token)
             val depts = sg.getDepartments(token)
-            depts.enqueue(object : Callback<List<MyProjectsContent.DepartmentItem>> {
-                override fun onResponse(call: Call<List<MyProjectsContent.DepartmentItem>>,
-                                        response: Response<List<MyProjectsContent.DepartmentItem>>) {
+            depts.enqueue(object : Callback<List<Content.DepartmentItem>> {
+                override fun onResponse(call: Call<List<Content.DepartmentItem>>,
+                                        response: Response<List<Content.DepartmentItem>>) {
                     try {
                         Log.d("DownloadData", response.body()!!.toString())
-                        MyProjectsContent.DEPTS.addAll(response.body()!!)
+                        Content.DEPTS.addAll(response.body()!!)
                     } catch (e: NullPointerException) {
                         try {
-                            Log.d("ERRBODY", response.errorBody()!!.string())
+                            Log.d("DEPTS ERRBODY", response.errorBody()!!.string())
                             Toast.makeText(context, response.errorBody()!!.string(), Toast.LENGTH_LONG).show()
                         } catch (f: IOException) {
                             Log.d("IOException", f.message)
@@ -54,20 +55,20 @@ class MyProjectsFragment : Fragment() {
                     }
                 }
 
-                override fun onFailure(call: Call<List<MyProjectsContent.DepartmentItem>>?, t: Throwable?) {
+                override fun onFailure(call: Call<List<Content.DepartmentItem>>?, t: Throwable?) {
                     Toast.makeText(context, "We're having trouble retrieving types.", Toast.LENGTH_LONG).show()
                     Log.d("DownloadFail", t.toString())
                 }
             })
-            types.enqueue(object : Callback<List<MyProjectsContent.TypeItem>> {
-                override fun onResponse(call: Call<List<MyProjectsContent.TypeItem>>,
-                                        response: Response<List<MyProjectsContent.TypeItem>>) {
+            types.enqueue(object : Callback<List<Content.TypeItem>> {
+                override fun onResponse(call: Call<List<Content.TypeItem>>,
+                                        response: Response<List<Content.TypeItem>>) {
                     try {
                         Log.d("DownloadData", response.body()!!.toString())
-                        MyProjectsContent.TYPES.addAll(response.body()!!)
+                        Content.TYPES.addAll(response.body()!!)
                     } catch (e: NullPointerException) {
                         try {
-                            Log.d("ERRBODY", response.errorBody()!!.string())
+                            Log.d("TYPES ERRBODY", response.errorBody()!!.string())
                             Toast.makeText(context, response.errorBody()!!.string(), Toast.LENGTH_LONG).show()
                         } catch (f: IOException) {
                             Log.d("IOException", f.message)
@@ -75,22 +76,22 @@ class MyProjectsFragment : Fragment() {
                     }
                 }
 
-                override fun onFailure(call: Call<List<MyProjectsContent.TypeItem>>?, t: Throwable?) {
+                override fun onFailure(call: Call<List<Content.TypeItem>>?, t: Throwable?) {
                     Toast.makeText(context, "We're having trouble retrieving types.", Toast.LENGTH_LONG).show()
                     Log.d("DownloadFail", t.toString())
                 }
             })
-            clients.enqueue(object : Callback<List<MyProjectsContent.ClientItem>> {
-                override fun onResponse(call: Call<List<MyProjectsContent.ClientItem>>,
-                                        response: Response<List<MyProjectsContent.ClientItem>>) {
+            clients.enqueue(object : Callback<List<Content.ClientItem>> {
+                override fun onResponse(call: Call<List<Content.ClientItem>>,
+                                        response: Response<List<Content.ClientItem>>) {
                     try {
                         Log.d("DownloadData", response.body()!!.toString())
-                        MyProjectsContent.CLIENTS.addAll(response.body()!!)
+                        Content.CLIENTS.addAll(response.body()!!)
                         val ft = fragmentManager?.beginTransaction()
                         ft?.detach(this@MyProjectsFragment)?.attach(this@MyProjectsFragment)?.commit()
                     } catch (e: NullPointerException) {
                         try {
-                            Log.d("ERRBODY", response.errorBody()!!.string())
+                            Log.d("CLNTS ERRBODY", response.errorBody()!!.string())
                             Toast.makeText(context, response.errorBody()!!.string(), Toast.LENGTH_LONG).show()
                         } catch (f: IOException) {
                             Log.d("IOException", f.message)
@@ -98,7 +99,7 @@ class MyProjectsFragment : Fragment() {
                     }
                 }
 
-                override fun onFailure(call: Call<List<MyProjectsContent.ClientItem>>?, t: Throwable?) {
+                override fun onFailure(call: Call<List<Content.ClientItem>>?, t: Throwable?) {
                     Toast.makeText(context, "We're having trouble retrieving clients.", Toast.LENGTH_LONG).show()
                     Log.d("DownloadFail", t.toString())
                 }
@@ -113,7 +114,7 @@ class MyProjectsFragment : Fragment() {
                         ft?.detach(this@MyProjectsFragment)?.attach(this@MyProjectsFragment)?.commit()
                     } catch (e: NullPointerException) {
                         try {
-                            Log.d("ERRBODY", response.errorBody()!!.string())
+                            Log.d("PJCTS ERRBODY", response.errorBody()!!.string())
                             Toast.makeText(context, response.errorBody()!!.string(), Toast.LENGTH_LONG).show()
                         } catch (f: IOException) {
                             Log.d("IOException", f.message)

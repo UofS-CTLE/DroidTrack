@@ -1,5 +1,7 @@
 package edu.scranton.ctleweb.droidtrack.projtrack
 
+import edu.scranton.ctleweb.droidtrack.projtrack.Content.CLIENTS
+import edu.scranton.ctleweb.droidtrack.projtrack.Content.TYPES
 import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
@@ -10,60 +12,19 @@ object MyProjectsContent {
      * An array of sample (Project) items.
      */
     val ITEMS: MutableList<ProjectItem> = ArrayList()
-    val CLIENTS: MutableList<ClientItem> = ArrayList()
-    val TYPES: MutableList<TypeItem> = ArrayList()
-    val DEPTS: MutableList<DepartmentItem> = ArrayList()
 
     /**
      * A Project item representing a piece of content.
      */
     class ProjectItem(val id: String, val title: String, val description: String,
                       val completed: Boolean, val cli: Int, val type: Int,
-                      val date: String, val hours: String, val consultants: List<UserItem>) : Serializable {
+                      val date: String, val hours: String, val consultants: List<Content.UserItem>) : Serializable {
 
-        val projtype: TypeItem = TYPES[type]
-        val client: ClientItem = CLIENTS[cli]
+        val projtype: Content.TypeItem = TYPES[type]
+        val client: Content.ClientItem = CLIENTS[cli]
 
         override fun toString(): String {
             return this.title
-        }
-    }
-
-    class ClientItem(private val first_name: String, val last_name: String, val email: String,
-                     val dept: Int) : Serializable {
-
-        val department: DepartmentItem = DEPTS[dept]
-
-        override fun toString(): String {
-            return this.first_name + " " + this.last_name
-        }
-    }
-
-    class TypeItem(val name: String) : Serializable {
-
-        override fun toString(): String {
-            return this.name
-        }
-    }
-
-    class UserItem(private val username: String) : Serializable {
-
-        override fun toString(): String {
-            return this.username
-        }
-    }
-
-    class DepartmentItem(val name: String) : Serializable {
-
-        override fun toString(): String {
-            return this.name
-        }
-    }
-
-    class SemesterItem(val name: String) : Serializable {
-
-        override fun toString(): String {
-            return this.name
         }
     }
 }
