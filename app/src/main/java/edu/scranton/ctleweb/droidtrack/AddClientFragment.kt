@@ -7,9 +7,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import edu.scranton.ctleweb.droidtrack.projtrack.Content
+
 
 class AddClientFragment : Fragment() {
 
@@ -29,6 +32,18 @@ class AddClientFragment : Fragment() {
 
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item)
         spinner?.adapter = spinnerArrayAdapter
+
+        spinner?.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
+                // your code here
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>) {
+                // your code here
+            }
+
+        }
+        
         return v
     }
 
