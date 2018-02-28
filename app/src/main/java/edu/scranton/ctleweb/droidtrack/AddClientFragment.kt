@@ -37,6 +37,7 @@ class AddClientFragment : Fragment() {
         spinner?.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
                 Log.d("SPINNER", position.toString())
+                val item = parentView.getItemAtPosition(position)
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>) {
