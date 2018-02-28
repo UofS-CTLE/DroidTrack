@@ -2,10 +2,6 @@ package edu.scranton.ctleweb.droidtrack.projtrack
 
 import java.io.Serializable
 
-/**
- * Created by sean on 2/26/18.
- */
-
 object Content {
 
     val CLIENTS: MutableList<ClientItem> = ArrayList()
@@ -13,9 +9,9 @@ object Content {
     val DEPTS: MutableList<DepartmentItem> = ArrayList()
 
     class ClientItem(private val first_name: String, val last_name: String, val email: String,
-                     val dept: Int) : Serializable {
+                     department: Int) : Serializable {
 
-        val department: DepartmentItem = DEPTS[dept]
+        val dept: DepartmentItem = DEPTS[department]
 
         override fun toString(): String {
             return this.first_name + " " + this.last_name

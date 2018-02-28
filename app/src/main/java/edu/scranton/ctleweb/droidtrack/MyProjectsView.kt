@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import edu.scranton.ctleweb.droidtrack.projtrack.Content
 import edu.scranton.ctleweb.droidtrack.projtrack.MyProjectsContent
 
 class MyProjectsView : Fragment() {
@@ -23,16 +24,21 @@ class MyProjectsView : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v: View = inflater.inflate(R.layout.fragment_my_projects_view, container, false)
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        val v: View = inflater.inflate(R.layout.fragment_my_projects_view,
+                container, false)
         val title: TextView = v.findViewById(R.id.title) as TextView
         title.text = project?.title
         val descr: TextView = v.findViewById(R.id.description) as TextView
         descr.text = project?.description
         val type: TextView = v.findViewById(R.id.type) as TextView
-        type.text = project?.projtype?.name
+        val typeobj = Content.TYPES[project!!.type]
+        type.text = "Type: " + typeobj.name
         val clint: TextView = v.findViewById(R.id.client) as TextView
-        clint.text = "Client: " + project?.client?.last_name
+        val cli = Content.CLIENTS[project!!.client]
+        clint.text = "Client: " + cli.last_name
         val hours: TextView = v.findViewById(R.id.hours) as TextView
         hours.text = "Hours: " + project?.hours
         val compl: TextView = v.findViewById(R.id.completed) as TextView

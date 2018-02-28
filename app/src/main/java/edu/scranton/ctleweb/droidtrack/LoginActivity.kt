@@ -15,6 +15,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import edu.scranton.ctleweb.droidtrack.projtrack.LoaderThread
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -120,6 +121,9 @@ class LoginActivity : AppCompatActivity() {
                     var returnedResponse = mLoginObject.token
                     returnedResponse = "Token " + returnedResponse
                     Log.d("TOKEN", returnedResponse)
+                    val ldthrd = LoaderThread(returnedResponse)
+                    ldthrd.start()
+                    ldthrd.join()
                     Toast.makeText(this@LoginActivity, "Retrieved login token.", Toast.LENGTH_LONG).show()
                     val loginIntent = Intent(this@LoginActivity, MainActivity::class.java)
                     loginIntent.putExtra("TOKEN", returnedResponse)
