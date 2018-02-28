@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import edu.scranton.ctleweb.droidtrack.projtrack.Content
 
 class AddClientFragment : Fragment() {
 
@@ -16,20 +17,19 @@ class AddClientFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val spinner: Spinner? = view?.findViewById(R.id.department_spinner)
+        val v = inflater.inflate(R.layout.fragment_add_client, container, false)
 
-        val plants = arrayOf("Black birch", "European weeping birch")
+        val spinner: Spinner? = v.findViewById(R.id.department_spinner)
 
-        val spinnerArrayAdapter = ArrayAdapter<String>(
+        val spinnerArrayAdapter = ArrayAdapter<Content.DepartmentItem>(
                 this.context,
                 R.layout.support_simple_spinner_dropdown_item,
-                plants
+                Content.DEPTS
         )
 
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item)
         spinner?.adapter = spinnerArrayAdapter
-
-        return inflater.inflate(R.layout.fragment_add_client, container, false)
+        return v
     }
 
     fun onButtonPressed(uri: Uri) {

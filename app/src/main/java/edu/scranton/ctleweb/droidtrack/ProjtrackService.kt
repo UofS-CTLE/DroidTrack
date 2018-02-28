@@ -69,4 +69,13 @@ internal interface ProjtrackService {
     @Headers("Content-Type: application/json")
     @GET("api/semesters/")
     fun getSemesters(@Header("authenticate") token: String): Call<List<Content.SemesterItem>>
+
+    @Headers("Content-Type: application/json")
+    @POST("api/project/")
+    fun addProject(@Header("authenticate") token: String, project: MyProjectsContent.ProjectItem)
+
+    @Headers("Content-Type: application/json")
+    @POST("api/client/")
+    fun addClient(@Header("authenticate") token: String, client: Content.ClientItem)
+
 }

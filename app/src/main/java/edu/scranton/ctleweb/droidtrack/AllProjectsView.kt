@@ -32,10 +32,14 @@ class AllProjectsView : Fragment() {
         val descr: TextView = v.findViewById(R.id.description) as TextView
         descr.text = project?.description
         val type: TextView = v.findViewById(R.id.type) as TextView
-        val typeobj = Content.TYPES[project!!.type]
+        val typeobj = Content.TYPES.single { s ->
+            s.id == project!!.type
+        }
         type.text = typeobj.name
         val clint: TextView = v.findViewById(R.id.client) as TextView
-        val cli = Content.CLIENTS[project!!.client]
+        val cli: Content.ClientItem = Content.CLIENTS.single { s ->
+            s.id == project!!.client
+        }
         clint.text = "Client: " + cli.last_name
         val hours: TextView = v.findViewById(R.id.hours) as TextView
         hours.text = "Hours: " + project?.hours

@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import edu.scranton.ctleweb.droidtrack.projtrack.Content
 
 class AddProjectFragment : Fragment() {
 
@@ -14,7 +17,31 @@ class AddProjectFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_add_project, container, false)
+        val v = inflater.inflate(R.layout.fragment_add_project, container, false)
+
+        val clientSpinner: Spinner? = v.findViewById(R.id.client_spinner)
+
+        val spinnerArrayAdapter1 = ArrayAdapter<Content.ClientItem>(
+                this.context,
+                R.layout.spinner_item,
+                Content.CLIENTS
+        )
+
+        spinnerArrayAdapter1.setDropDownViewResource(R.layout.spinner_item)
+        clientSpinner?.adapter = spinnerArrayAdapter1
+
+        val typeSpinner: Spinner? = v.findViewById(R.id.type_spinner)
+
+        val spinnerArrayAdapter2 = ArrayAdapter<Content.TypeItem>(
+                this.context,
+                R.layout.spinner_item,
+                Content.TYPES
+        )
+
+        spinnerArrayAdapter2.setDropDownViewResource(R.layout.spinner_item)
+        typeSpinner?.adapter = spinnerArrayAdapter2
+
+        return v
     }
 
     fun onButtonPressed(uri: Uri) {

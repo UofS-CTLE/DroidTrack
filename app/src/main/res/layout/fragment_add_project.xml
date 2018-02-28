@@ -33,6 +33,7 @@
                 android:textSize="32sp" />
 
             <Spinner
+                android:id="@+id/type_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="32sp" />
@@ -44,6 +45,7 @@
                 android:textSize="32sp" />
 
             <Spinner
+                android:id="@+id/client_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="32sp" />
