@@ -8,11 +8,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
+import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
 import edu.scranton.ctleweb.droidtrack.projtrack.Content
 
 
@@ -26,10 +23,12 @@ class AddClientFragment : Fragment(), View.OnClickListener {
         val v = inflater.inflate(R.layout.fragment_add_client, container, false)
 
         val spinner: Spinner? = v.findViewById(R.id.department_spinner)
+        val submitButton: Button = v.findViewById(R.id.submit_client)
+        submitButton.setOnClickListener(this)
 
         val spinnerArrayAdapter = ArrayAdapter<Content.DepartmentItem>(
                 this.context,
-                R.layout.support_simple_spinner_dropdown_item,
+                R.layout.spinner_item,
                 Content.DEPTS
         )
 
@@ -53,7 +52,7 @@ class AddClientFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.submit_project -> {
+            R.id.submit_client -> {
                 val firstName: EditText = v.findViewById(R.id.client_first)
                 val lastName: EditText = v.findViewById(R.id.client_last)
                 val email: EditText = v.findViewById(R.id.client_email)
@@ -66,6 +65,7 @@ class AddClientFragment : Fragment(), View.OnClickListener {
                 )
                 val sg = ServiceGenerator.createService(ProjtrackService::class.java, Content.TOKEN)
                 sg.addClient(Content.TOKEN, client)
+                Log.d("AddClient", "Client submitted.")
             }
             else -> {
             }
