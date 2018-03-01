@@ -13,7 +13,7 @@ object MyProjectsContent {
      * A Project item representing a piece of content.
      */
     class ProjectItem(val id: String, val title: String, val description: String,
-                      val completed: Boolean, val client: Int, val type: Int,
+                      val completed: Boolean, var client: Int, var type: Int,
                       val date: String, val hours: String,
                       val consultants: List<Content.UserItem>) : Serializable {
 

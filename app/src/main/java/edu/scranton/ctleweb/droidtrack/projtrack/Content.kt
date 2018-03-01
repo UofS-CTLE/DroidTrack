@@ -4,9 +4,11 @@ import java.io.Serializable
 
 object Content {
 
+    var TOKEN: String = ""
     val CLIENTS: MutableList<ClientItem> = ArrayList()
     val TYPES: MutableList<TypeItem> = ArrayList()
     val DEPTS: MutableList<DepartmentItem> = ArrayList()
+    val USERS: MutableList<UserItem> = ArrayList()
 
     class ClientItem(val id: Int, val first_name: String, val last_name: String,
                      val email: String, department: Int) : Serializable {

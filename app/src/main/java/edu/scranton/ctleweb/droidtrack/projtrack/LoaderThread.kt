@@ -16,8 +16,10 @@ class LoaderThread constructor(private val token: String) : Thread() {
         depts()
         types()
         clients()
+        users()
         my_projects()
         all_projects()
+        Content.TOKEN = token
     }
 
     private fun depts() {
@@ -40,6 +42,32 @@ class LoaderThread constructor(private val token: String) : Thread() {
                 }
 
                 override fun onFailure(call: Call<List<Content.DepartmentItem>>?, t: Throwable?) {
+                    Log.d("DeptDownloadFail", t.toString())
+                }
+            })
+        }
+    }
+
+    private fun users() {
+        if (Content.USERS.size == 0) {
+            val depts = sg.getUsers(token)
+
+            depts.enqueue(object : Callback<List<Content.UserItem>> {
+                override fun onResponse(call: Call<List<Content.UserItem>>,
+                                        response: Response<List<Content.UserItem>>) {
+                    try {
+                        Log.d("DownloadData", response.body()!!.toString())
+                        Content.USERS.addAll(response.body()!!)
+                    } catch (e: NullPointerException) {
+                        try {
+                            Log.d("DEPTS ERRBODY", response.errorBody()!!.string())
+                        } catch (f: IOException) {
+                            Log.d("IOException", f.message)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Content.UserItem>>?, t: Throwable?) {
                     Log.d("DeptDownloadFail", t.toString())
                 }
             })

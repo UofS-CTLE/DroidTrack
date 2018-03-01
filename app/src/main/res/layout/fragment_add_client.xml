@@ -12,18 +12,21 @@
         android:textSize="52sp" />
 
     <EditText
+        android:id="@+id/client_first"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="First Name"
         android:textSize="32sp" />
 
     <EditText
+        android:id="@+id/client_last"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Last Name"
         android:textSize="32sp" />
 
     <EditText
+        android:id="@+id/client_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"

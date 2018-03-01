@@ -11,13 +11,15 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Spinner
 import edu.scranton.ctleweb.droidtrack.projtrack.Content
 
 
-class AddClientFragment : Fragment() {
+class AddClientFragment : Fragment(), View.OnClickListener {
 
     private var mListener: OnFragmentInteractionListener? = null
+    private var department: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -37,7 +39,7 @@ class AddClientFragment : Fragment() {
         spinner?.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
                 Log.d("SPINNER", position.toString())
-                val item = parentView.getItemAtPosition(position)
+                department = (parentView.getItemAtPosition(position) as Content.DepartmentItem).id
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>) {
@@ -47,6 +49,27 @@ class AddClientFragment : Fragment() {
         }
         
         return v
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.submit_project -> {
+                val firstName: EditText = v.findViewById(R.id.client_first)
+                val lastName: EditText = v.findViewById(R.id.client_last)
+                val email: EditText = v.findViewById(R.id.client_email)
+                var client: Content.ClientItem = Content.ClientItem(
+                        id = 0,
+                        first_name = firstName.text.toString(),
+                        last_name = lastName.text.toString(),
+                        email = email.text.toString(),
+                        department = department
+                )
+                val sg = ServiceGenerator.createService(ProjtrackService::class.java, Content.TOKEN)
+                sg.addClient(Content.TOKEN, client)
+            }
+            else -> {
+            }
+        }
     }
 
     fun onButtonPressed(uri: Uri) {

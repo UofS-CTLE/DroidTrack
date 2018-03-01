@@ -8,20 +8,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.widget.*
 import edu.scranton.ctleweb.droidtrack.projtrack.Content
+import edu.scranton.ctleweb.droidtrack.projtrack.MyProjectsContent
+import java.util.*
 
-class AddProjectFragment : Fragment() {
+class AddProjectFragment : Fragment(), View.OnClickListener {
 
     private var mListener: OnFragmentInteractionListener? = null
+    private var client: Int = 0
+    private var type: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_add_project, container, false)
 
         val clientSpinner: Spinner? = v.findViewById(R.id.client_spinner)
+        val submitButton: Button = v.findViewById(R.id.submit_project)
+        submitButton.setOnClickListener(this)
 
         val spinnerArrayAdapter1 = ArrayAdapter<Content.ClientItem>(
                 this.context,
@@ -46,7 +50,7 @@ class AddProjectFragment : Fragment() {
         typeSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
                 Log.d("SPINNER", position.toString())
-                val item = parentView.getItemAtPosition(position)
+                type = (parentView.getItemAtPosition(position) as Content.TypeItem).id
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>) {
@@ -57,7 +61,7 @@ class AddProjectFragment : Fragment() {
         clientSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View, position: Int, id: Long) {
                 Log.d("SPINNER", position.toString())
-                val item = parentView.getItemAtPosition(position)
+                client = (parentView.getItemAtPosition(position) as Content.ClientItem).id
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>) {
@@ -67,6 +71,35 @@ class AddProjectFragment : Fragment() {
         }
 
         return v
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.submit_project -> {
+                val titleText: EditText = v.findViewById(R.id.title)
+                val description: EditText = v.findViewById(R.id.description)
+                val completed: CheckBox = v.findViewById(R.id.completed)
+                val hours: EditText = v.findViewById(R.id.hours)
+                val users: EditText = v.findViewById(R.id.users)
+                var project: MyProjectsContent.ProjectItem = MyProjectsContent.ProjectItem(
+                        id = "",
+                        title = titleText.text.toString(),
+                        description = description.text.toString(),
+                        completed = completed.isChecked,
+                        client = client,
+                        type = type,
+                        date = Calendar.getInstance().time.toString(),
+                        hours = hours.text.toString(),
+                        consultants = Content.USERS.filter { s ->
+                            s.username == users.text.toString()
+                        }
+                )
+                val sg = ServiceGenerator.createService(ProjtrackService::class.java, Content.TOKEN)
+                sg.addProject(Content.TOKEN, project)
+            }
+            else -> {
+            }
+        }
     }
 
     fun onButtonPressed(uri: Uri) {

@@ -21,12 +21,14 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Title"
                 android:textSize="32sp" />
 
             <EditText
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Description"
@@ -39,6 +41,7 @@
                 android:textSize="32sp" />
 
             <CheckBox
+                android:id="@+id/walk_in"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Walk-in?"
@@ -50,19 +53,16 @@
                 android:layout_height="wrap_content"
                 android:textSize="32sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
+            <EditText
+                android:id="@+id/users"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Users"
+                android:hint="User"
+                android:inputType="text"
                     android:textSize="32sp" />
 
-            </LinearLayout>
-
             <EditText
+                android:id="@+id/hours"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Hours"
@@ -70,12 +70,14 @@
                 android:textSize="32sp" />
 
             <CheckBox
+                android:id="@+id/completed"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Completed?"
                 android:textSize="32sp" />
 
             <Button
+                android:id="@+id/submit_project"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Submit"
