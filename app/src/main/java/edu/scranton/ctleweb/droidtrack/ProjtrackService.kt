@@ -72,10 +72,10 @@ internal interface ProjtrackService {
 
     @Headers("Content-Type: application/json")
     @POST("api/project/")
-    fun addProject(@Header("authenticate") token: String, project: MyProjectsContent.ProjectItem)
+    fun addProject(@Header("authenticate") token: String, @Body project: MyProjectsContent.ProjectItem): Call<Void>
 
     @Headers("Content-Type: application/json")
-    @POST("api/client/")
-    fun addClient(@Header("authenticate") token: String, client: Content.ClientItem)
+    @POST("api/clients/")
+    fun addClient(@Header("authenticate") token: String, @Body client: Content.ClientItem): Call<Void>
 
 }

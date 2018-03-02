@@ -51,12 +51,13 @@ class AddClientFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
+        val layout: LinearLayout = v.parent as LinearLayout
         when (v.id) {
             R.id.submit_client -> {
-                val firstName: EditText = v.findViewById(R.id.client_first)
-                val lastName: EditText = v.findViewById(R.id.client_last)
-                val email: EditText = v.findViewById(R.id.client_email)
-                var client: Content.ClientItem = Content.ClientItem(
+                val firstName: EditText = layout.findViewById(R.id.client_first)
+                val lastName: EditText = layout.findViewById(R.id.client_last)
+                val email: EditText = layout.findViewById(R.id.client_email)
+                val client: Content.ClientItem = Content.ClientItem(
                         id = 0,
                         first_name = firstName.text.toString(),
                         last_name = lastName.text.toString(),

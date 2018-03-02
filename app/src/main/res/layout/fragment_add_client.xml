@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:tag="@string/add_client"
     tools:context="edu.scranton.ctleweb.droidtrack.AddClientFragment">
 
     <TextView
@@ -44,6 +45,7 @@
         android:id="@+id/submit_client"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:tag="submit_client"
         android:text="Submit"
         android:textSize="32sp" />
 
