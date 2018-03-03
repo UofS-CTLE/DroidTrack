@@ -7,7 +7,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ServiceGenerator {
-    private val API_BASE_URL = "http://10.31.227.164:8080/"
+    // private const val API_BASE_URL = "https://ctleweb.scranton.edu/projtrack3/"
+    private const val API_BASE_URL = "http://10.31.224.191:8080/"
 
     private val httpClient = OkHttpClient.Builder()
     private var retrofit: Retrofit? = null

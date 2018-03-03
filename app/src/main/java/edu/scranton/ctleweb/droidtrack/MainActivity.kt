@@ -15,7 +15,15 @@ import android.view.View
 import edu.scranton.ctleweb.droidtrack.projtrack.AllProjectsContent
 import edu.scranton.ctleweb.droidtrack.projtrack.MyProjectsContent
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener, AddClientFragment.OnFragmentInteractionListener, AddProjectFragment.OnFragmentInteractionListener, AllProjectsView.OnFragmentInteractionListener, MyProjectsView.OnFragmentInteractionListener, AllProjectsFragment.OnListFragmentInteractionListener, MyProjectsFragment.OnListFragmentInteractionListener {
+class MainActivity : AppCompatActivity(),
+        NavigationView.OnNavigationItemSelectedListener,
+        HomeFragment.OnFragmentInteractionListener,
+        AddClientFragment.OnFragmentInteractionListener,
+        AddProjectFragment.OnFragmentInteractionListener,
+        AllProjectsView.OnFragmentInteractionListener,
+        MyProjectsView.OnFragmentInteractionListener,
+        AllProjectsFragment.OnListFragmentInteractionListener,
+        MyProjectsFragment.OnListFragmentInteractionListener {
 
     private var token: String? = null
 
@@ -27,7 +35,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val drawer = findViewById<View>(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+                this, drawer, toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -39,7 +49,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         val fragment = HomeFragment()
-        fragmentTransaction.add(R.id.fragment_container, fragment).addToBackStack("Home").commit()
+        fragmentTransaction.add(R.id.fragment_container, fragment)
+                .addToBackStack("Home").commit()
     }
 
     override fun onBackPressed() {
@@ -75,7 +86,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val b = Bundle()
                 b.putString("token", this.token)
                 fragment.arguments = b
-                fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("Home").commit()
+                fragmentTransaction.replace(R.id.fragment_container, fragment)
+                        .addToBackStack("Home").commit()
             }
             R.id.nav_my_projects -> {
                 Log.d("MainActivity", "My Projects")
@@ -85,7 +97,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val b = Bundle()
                 b.putString("token", this.token)
                 fragment.arguments = b
-                fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("MyProjects").commit()
+                fragmentTransaction.replace(R.id.fragment_container, fragment)
+                        .addToBackStack("MyProjects").commit()
             }
             R.id.nav_all_projects -> {
                 Log.d("MainActivity", "All Projects")
@@ -95,7 +108,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val b = Bundle()
                 b.putString("token", this.token)
                 fragment.arguments = b
-                fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("AllProjects").commit()
+                fragmentTransaction.replace(R.id.fragment_container, fragment)
+                        .addToBackStack("AllProjects").commit()
             }
             R.id.nav_add_project -> {
                 Log.d("MainActivity", "Add Project")
@@ -105,7 +119,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val b = Bundle()
                 b.putString("token", this.token)
                 fragment.arguments = b
-                fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("AddProject").commit()
+                fragmentTransaction.replace(R.id.fragment_container, fragment)
+                        .addToBackStack("AddProject").commit()
             }
             R.id.nav_add_client -> {
                 Log.d("MainActivity", "Add Client")
@@ -115,7 +130,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val b = Bundle()
                 b.putString("token", this.token)
                 fragment.arguments = b
-                fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("AddClient").commit()
+                fragmentTransaction.replace(R.id.fragment_container, fragment)
+                        .addToBackStack("AddClient").commit()
             }
         }
 
@@ -135,7 +151,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val b = Bundle()
         b.putSerializable("item", item)
         fragment.arguments = b
-        fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("Project").commit()
+        fragmentTransaction.replace(R.id.fragment_container, fragment)
+                .addToBackStack("Project").commit()
     }
 
     override fun onListFragmentInteraction(item: MyProjectsContent.ProjectItem) {
@@ -145,6 +162,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val b = Bundle()
         b.putSerializable("item", item)
         fragment.arguments = b
-        fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack("Project").commit()
+        fragmentTransaction.replace(R.id.fragment_container, fragment)
+                .addToBackStack("Project").commit()
     }
 }

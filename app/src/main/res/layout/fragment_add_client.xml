@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:tag="@string/add_client"
     tools:context="edu.scranton.ctleweb.droidtrack.AddClientFragment">
 
     <TextView
@@ -12,24 +13,25 @@
         android:textSize="52sp" />
 
     <EditText
-        android:id="@+id/first_name_field"
+        android:id="@+id/client_first"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="First Name"
         android:textSize="32sp" />
 
     <EditText
-        android:id="@+id/last_name_field"
+        android:id="@+id/client_last"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Last Name"
         android:textSize="32sp" />
 
     <EditText
-        android:id="@+id/email_field"
+        android:id="@+id/client_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
+        android:inputType="textEmailAddress"
         android:textSize="32sp" />
 
     <Spinner
@@ -40,9 +42,10 @@
         android:textSize="32sp" />
 
     <Button
-        android:id="@+id/submit_button"
+        android:id="@+id/submit_client"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:tag="submit_client"
         android:text="Submit"
         android:textSize="32sp" />
 

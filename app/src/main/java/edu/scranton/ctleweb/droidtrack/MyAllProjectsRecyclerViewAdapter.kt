@@ -11,7 +11,9 @@ import android.widget.TextView
 import edu.scranton.ctleweb.droidtrack.AllProjectsFragment.OnListFragmentInteractionListener
 import edu.scranton.ctleweb.droidtrack.projtrack.AllProjectsContent.ProjectItem
 
-class MyAllProjectsRecyclerViewAdapter(private val mValues: List<ProjectItem>, private val mListener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<MyAllProjectsRecyclerViewAdapter.ViewHolder>() {
+class MyAllProjectsRecyclerViewAdapter(private val mValues: List<ProjectItem>,
+                                       private val mListener: OnListFragmentInteractionListener?)
+    : RecyclerView.Adapter<MyAllProjectsRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import edu.scranton.ctleweb.droidtrack.projtrack.AllProjectsContent
+import edu.scranton.ctleweb.droidtrack.projtrack.Content
 
 class AllProjectsView : Fragment() {
 
@@ -23,19 +24,26 @@ class AllProjectsView : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         val v: View = inflater.inflate(R.layout.fragment_all_projects_view, container, false)
-        val title: TextView = v.findViewById<TextView>(R.id.title) as TextView
+        val title: TextView = v.findViewById(R.id.title) as TextView
         title.text = project?.title
-        val descr: TextView = v.findViewById<TextView>(R.id.description) as TextView
+        val descr: TextView = v.findViewById(R.id.description) as TextView
         descr.text = project?.description
-        val type: TextView = v.findViewById<TextView>(R.id.type) as TextView
-        type.text = project?.projtype?.name
-        val clint: TextView = v.findViewById<TextView>(R.id.client) as TextView
-        clint.text = "Client: " + project?.client?.last_name
-        val hours: TextView = v.findViewById<TextView>(R.id.hours) as TextView
+        val type: TextView = v.findViewById(R.id.type) as TextView
+        val typeobj = Content.TYPES.single { s ->
+            s.id == project!!.type
+        }
+        type.text = typeobj.name
+        val clint: TextView = v.findViewById(R.id.client) as TextView
+        val cli: Content.ClientItem = Content.CLIENTS.single { s ->
+            s.id == project!!.client
+        }
+        clint.text = "Client: " + cli.last_name
+        val hours: TextView = v.findViewById(R.id.hours) as TextView
         hours.text = "Hours: " + project?.hours
-        val compl: TextView = v.findViewById<TextView>(R.id.completed) as TextView
+        val compl: TextView = v.findViewById(R.id.completed) as TextView
         compl.text = "Completed: " + project?.completed.toString()
         return v
     }
