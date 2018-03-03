@@ -71,11 +71,30 @@ internal interface ProjtrackService {
     fun getSemesters(@Header("authenticate") token: String): Call<List<Content.SemesterItem>>
 
     @Headers("Content-Type: application/json")
-    @POST("api/project/")
-    fun addProject(@Header("authenticate") token: String, @Body project: MyProjectsContent.ProjectItem): Call<Void>
+    @GET("api/current_semester/")
+    fun getCurrentSemester(@Header("authenticate") token: String): Call<List<Content.CurrentSemesterItem>>
 
-    @Headers("Content-Type: application/json")
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST("api/projects/")
+    fun addProject(@Header("authenticate") token: String,
+                   @Field("title") title: String,
+                   @Field("description") description: String,
+                   @Field("date") date: String,
+                   @Field("type") type: Int,
+                   @Field("walk_in") walk_in: Boolean,
+                   @Field("client") client: Int,
+                   @Field("users") users: List<Content.UserItem>,
+                   @Field("semester") semester: Int,
+                   @Field("hours") hours: String,
+                   @Field("completed") completed: Boolean): Call<Void>
+
+    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @FormUrlEncoded
     @POST("api/clients/")
-    fun addClient(@Header("authenticate") token: String, @Body client: Content.ClientItem): Call<Void>
-
+    fun addClient(@Header("authenticate") token: String,
+                  @Field("first_name") first_name: String,
+                  @Field("last_name") last_name: String,
+                  @Field("email") email: String,
+                  @Field("department") department: Int): Call<Void>
 }

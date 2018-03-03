@@ -9,6 +9,8 @@ object Content {
     val TYPES: MutableList<TypeItem> = ArrayList()
     val DEPTS: MutableList<DepartmentItem> = ArrayList()
     val USERS: MutableList<UserItem> = ArrayList()
+    val SEMESTERS: MutableList<SemesterItem> = ArrayList()
+    lateinit var CURRENT_SEMESTER: CurrentSemesterItem
 
     class ClientItem(val id: Int, val first_name: String, val last_name: String,
                      val email: String, department: Int) : Serializable {
@@ -45,4 +47,6 @@ object Content {
             return this.name
         }
     }
+
+    class CurrentSemesterItem(val id: Int, val semester: Int) : Serializable
 }

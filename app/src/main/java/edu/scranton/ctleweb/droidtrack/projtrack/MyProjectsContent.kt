@@ -20,5 +20,10 @@ object MyProjectsContent {
         override fun toString(): String {
             return this.title
         }
+
+        fun toAllProjectsItem(): AllProjectsContent.ProjectItem {
+            return AllProjectsContent.ProjectItem(id, title, description, completed,
+                    client, type, date, hours, consultants)
+        }
     }
 }

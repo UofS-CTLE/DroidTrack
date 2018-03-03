@@ -42,7 +42,7 @@ class MyProjectsView : Fragment() {
         val cli = Content.CLIENTS.single { s ->
             s.id == project!!.client
         }
-        clint.text = "Client: " + cli.last_name
+        clint.text = "Client: $cli <${cli.email}>"
         val hours: TextView = v.findViewById(R.id.hours) as TextView
         hours.text = "Hours: " + project?.hours
         val compl: TextView = v.findViewById(R.id.completed) as TextView

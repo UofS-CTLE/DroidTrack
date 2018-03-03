@@ -11,6 +11,10 @@ import android.view.ViewGroup
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
 import edu.scranton.ctleweb.droidtrack.projtrack.Content
+import edu.scranton.ctleweb.droidtrack.projtrack.LoaderThread
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class AddClientFragment : Fragment(), View.OnClickListener {
@@ -44,9 +48,7 @@ class AddClientFragment : Fragment(), View.OnClickListener {
             override fun onNothingSelected(parentView: AdapterView<*>) {
                 // your code here
             }
-
         }
-        
         return v
     }
 
@@ -65,7 +67,31 @@ class AddClientFragment : Fragment(), View.OnClickListener {
                         department = department
                 )
                 val sg = ServiceGenerator.createService(ProjtrackService::class.java, Content.TOKEN)
-                sg.addClient(Content.TOKEN, client)
+                val add = sg.addClient(Content.TOKEN, first_name = client.first_name,
+                        last_name = client.last_name,
+                        email = client.email,
+                        department = department
+                )
+                add.enqueue(object : Callback<Void> {
+                    override fun onResponse(call: Call<Void>?, response: Response<Void>?) {
+                        Log.d("Call", call.toString())
+                        Log.d("Response", response.toString())
+                        Log.d("Body", response?.message().toString())
+                        Toast.makeText(context,
+                                "Client submitted.",
+                                Toast.LENGTH_LONG).show()
+                        val ld = LoaderThread(Content.TOKEN)
+                        ld.clearLists()
+                        ld.start()
+                    }
+
+                    override fun onFailure(call: Call<Void>?, t: Throwable?) {
+                        Log.d("Failed", t.toString())
+                        Toast.makeText(context,
+                                "Whoops. Something's not right.",
+                                Toast.LENGTH_LONG).show()
+                    }
+                })
                 Log.d("AddClient", "Client submitted.")
             }
             else -> {

@@ -119,7 +119,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this@LoginActivity, "Connecting to $BASE_URL failed.", Toast.LENGTH_LONG).show()
                 } else {
                     var returnedResponse = mLoginObject.token
-                    returnedResponse = "Token " + returnedResponse
+                    returnedResponse = "Token $returnedResponse"
                     Log.d("TOKEN", returnedResponse)
                     val ldthrd = LoaderThread(returnedResponse)
                     ldthrd.start()

@@ -12,13 +12,25 @@ class LoaderThread constructor(private val token: String) : Thread() {
 
     private val sg = ServiceGenerator.createService(ProjtrackService::class.java, token)
 
+    fun clearLists() {
+        Content.DEPTS.clear()
+        Content.TYPES.clear()
+        Content.CLIENTS.clear()
+        Content.USERS.clear()
+        MyProjectsContent.ITEMS.clear()
+        AllProjectsContent.ITEMS.clear()
+        Content.SEMESTERS.clear()
+    }
+
     override fun run() {
         depts()
         types()
         clients()
         users()
-        my_projects()
-        all_projects()
+        myProjects()
+        allProjects()
+        semesters()
+        currentSemester()
         Content.TOKEN = token
     }
 
@@ -126,7 +138,7 @@ class LoaderThread constructor(private val token: String) : Thread() {
         }
     }
 
-    private fun my_projects() {
+    private fun myProjects() {
         if (MyProjectsContent.ITEMS.size == 0) {
             val projects = sg.getMyProjects(token)
             projects.enqueue(object : Callback<List<MyProjectsContent.ProjectItem>> {
@@ -152,7 +164,7 @@ class LoaderThread constructor(private val token: String) : Thread() {
         }
     }
 
-    private fun all_projects() {
+    private fun allProjects() {
         if (AllProjectsContent.ITEMS.size == 0) {
             val projects = sg.getAllProjects(token)
             projects.enqueue(object : Callback<List<AllProjectsContent.ProjectItem>> {
@@ -176,5 +188,55 @@ class LoaderThread constructor(private val token: String) : Thread() {
                 }
             })
         }
+    }
+
+    private fun semesters() {
+        if (Content.SEMESTERS.size == 0) {
+            val depts = sg.getSemesters(token)
+
+            depts.enqueue(object : Callback<List<Content.SemesterItem>> {
+                override fun onResponse(call: Call<List<Content.SemesterItem>>,
+                                        response: Response<List<Content.SemesterItem>>) {
+                    try {
+                        Log.d("DownloadData", response.body()!!.toString())
+                        Content.SEMESTERS.addAll(response.body()!!)
+                    } catch (e: NullPointerException) {
+                        try {
+                            Log.d("SEMESTER ERRBODY", response.errorBody()!!.string())
+                        } catch (f: IOException) {
+                            Log.d("IOException", f.message)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Content.SemesterItem>>?, t: Throwable?) {
+                    Log.d("SemesterDownloadFail", t.toString())
+                }
+            })
+        }
+    }
+
+    private fun currentSemester() {
+        val depts = sg.getCurrentSemester(token)
+
+        depts.enqueue(object : Callback<List<Content.CurrentSemesterItem>> {
+            override fun onResponse(call: Call<List<Content.CurrentSemesterItem>>,
+                                    response: Response<List<Content.CurrentSemesterItem>>) {
+                try {
+                    Log.d("DownloadData", response.body()!!.toString())
+                    Content.CURRENT_SEMESTER = response.body()!![0]
+                } catch (e: NullPointerException) {
+                    try {
+                        Log.d("CURRENT ERRBODY", response.errorBody()!!.string())
+                    } catch (f: IOException) {
+                        Log.d("IOException", f.message)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<Content.CurrentSemesterItem>>?, t: Throwable?) {
+                Log.d("CurrentDownloadFail", t.toString())
+            }
+        })
     }
 }
